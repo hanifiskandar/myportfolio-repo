@@ -1,0 +1,1 @@
+<img src="{{ asset('logo/nepdev.png')}}" width="100px">
