@@ -3,7 +3,7 @@
 @php
   $aboutsetup = App\Models\About::find(1);
   $resumesetup = App\Models\Resume::orderBy('id')->get();
-@endphp
+  @endphp
 
 
 <section id="resume" class="resume full-height px-lg-5 section-bg">

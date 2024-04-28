@@ -16,7 +16,7 @@
 
             <input type="hidden" name="id" value="{{ $homesetup->id }}">
             <div class="row mb-3">
-                <label for="example-text-input" class="col-sm-2 col-form-label">title tutut</label>
+                <label for="example-text-input" class="col-sm-2 col-form-label">title</label>
                 <div class="col-sm-10">
                     <input name="title" class="form-control" type="text" value="{{ $homesetup->title }}"
                         id="example-text-input">
