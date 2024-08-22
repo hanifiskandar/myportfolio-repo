@@ -13,8 +13,10 @@ class AboutController extends Controller
 {
     //
     public function AboutSetup(){
-        $aboutsetup = About::find(1);
-        return view('admin.about_setup.about_setup_all',compact('aboutsetup'));
+        // $aboutsetup = About::find(1);
+        // return view('admin.about_setup.about_setup_all',compact('aboutsetup'));
+        // $aboutsetup = About::find(1);
+        return view('admin.about_setup.about_setup_all');
     }
 
     public function StoreAbout(Request $request){

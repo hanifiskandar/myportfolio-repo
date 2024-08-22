@@ -11,7 +11,7 @@
                     <div class="card-body">
 
         <h4 class="card-title">Skill Page Edit</h4>
-        <form action="{{ route('update.skill') }}" method="POST">
+        <form action="{{ route('skill.update') }}" method="POST">
             @csrf
 
         

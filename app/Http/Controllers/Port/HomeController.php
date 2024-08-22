@@ -5,14 +5,19 @@ namespace App\Http\Controllers\Port;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Home;
+use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
     //
 
     public function HomeSetup(){
-        $homesetup = Home::find(1);
-        return view('admin.home_setup.home_setup_all',compact('homesetup'));
+        // \Log::debug('homecontroller');
+        // \Log::debug(Auth::user()->id);
+        // $homesetup = Home::find(1);
+        // return view('admin.home_setup.home_setup_all',compact('homesetup'));
+        return view('admin.home_setup.home_setup_all');
     
     }
 

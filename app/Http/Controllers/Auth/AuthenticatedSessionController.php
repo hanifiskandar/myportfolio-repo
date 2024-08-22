@@ -28,6 +28,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+
+        \Log::debug("it is here");
+        \Log::debug($request->all());
         $request->authenticate();
 
         $request->session()->regenerate();

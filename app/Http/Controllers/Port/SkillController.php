@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Skill;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 class SkillController extends Controller
 {
@@ -13,12 +15,19 @@ class SkillController extends Controller
     public function SkillSetup(){
         return view('admin.skill_setup.skill_setup');
     }
-    public function SkillAll(){
-        $skill = Skill::latest()->get();
+
+    public function show(){
+
+        $userId = Auth::user()->id;
+
+        $skill = Skill::query()
+                ->where('user_id', $userId)
+                ->get();
+
         return view('admin.skill_setup.all_skill',compact('skill'));
     }
 
-    public function StoreSkill(Request $request){
+    public function store(Request $request){
 
 
         $request->validate([
@@ -37,24 +46,28 @@ class SkillController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('skill.all')->with($notification);
+        return redirect()->route('skill.show')->with($notification);
     }
 
 
-    public function SkillEdit($id){
+    public function edit($id){
+
         $skill = Skill::findOrFail($id);
+
         return view('admin.skill_setup.skill_edit',compact('skill'));
     }
 
-    public function UpdateSkill(Request $request){
+    public function update(Request $request){
 
         $skill_id = $request->id;
+        $userId = Auth::user()->id;
 
         Skill::findOrFail($skill_id)->update([
             'language' => $request->language,
             'level' => $request->level,
-            
+            'user_id' => $userId
         ]);
+
         $notification = array(
             'message' => 'Skill Update Successfully',
             'alert-type' => 'success'
@@ -63,7 +76,7 @@ class SkillController extends Controller
         return redirect()->route('skill.all')->with($notification);
     }
 
-    public function SkillDelete($id){
+    public function destroy($id){
         $skill = Skill::findOrFail($id)->delete();
 
         $notification = array(

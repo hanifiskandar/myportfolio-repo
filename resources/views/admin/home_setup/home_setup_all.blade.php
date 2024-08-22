@@ -14,11 +14,12 @@
         <form action="{{ route('store.home') }}" method="POST">
             @csrf
 
-            <input type="hidden" name="id" value="{{ $homesetup->id }}">
+            {{-- <input type="hidden" name="id" value="{{ $homesetup->id }}"> --}}
             <div class="row mb-3">
                 <label for="example-text-input" class="col-sm-2 col-form-label">title</label>
                 <div class="col-sm-10">
-                    <input name="title" class="form-control" type="text" value="{{ $homesetup->title }}"
+                    <input name="title" class="form-control" type="text" value=""
+                    {{-- <input name="title" class="form-control" type="text" value="{{ $homesetup->title }}" --}}
                         id="example-text-input">
                 </div>
             </div>
@@ -27,7 +28,8 @@
             <div class="row mb-3">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Short Description</label>
                 <div class="col-sm-10">
-                    <input name="short_description" class="form-control" type="text" value="{{ $homesetup->short_description }}"
+                    <input name="short_description" class="form-control" type="text" value=""
+                    {{-- <input name="short_description" class="form-control" type="text" value="{{ $homesetup->short_description }}" --}}
                         id="example-text-input">
                 </div>
             </div>
@@ -36,7 +38,8 @@
             <div class="row mb-3">
                 <label for="example-text-input" class="col-sm-2 col-form-label">Phone Number</label>
                 <div class="col-sm-10">
-                    <input name="phone_number" class="form-control" type="text" value="{{ $homesetup->phone_number }}"
+                    <input name="phone_number" class="form-control" type="text" value=""
+                    {{-- <input name="phone_number" class="form-control" type="text" value="{{ $homesetup->phone_number }}" --}}
                         id="example-text-input">
                 </div>
             </div>

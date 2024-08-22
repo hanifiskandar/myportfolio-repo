@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Demo\DemoController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Port\PersonalDetailController;
 use App\Http\Controllers\Port\HomeController;
 use App\Http\Controllers\Port\AboutController;
 use App\Http\Controllers\Port\SkillController;
@@ -41,9 +42,15 @@ Route::controller(AdminController::class)->group(function(){
     Route::post('/update/password', 'UpdatePassword')->name('update.password');
 });
 
+/* Personal Detail */
+Route::controller(PersonalDetailController::class)->group(function(){
+    Route::get('/personal-detail/setup/', 'show')->name('personal-detail.setup');
+    Route::post('/personal-detail', 'store')->name('personal-detail.store');
+});
+
 /* Home */
 Route::controller(HomeController::class)->group(function(){
-    Route::get('/home/setup', 'HomeSetup')->name('home.setup');
+    Route::get('/home/setup/', 'HomeSetup')->name('home.setup');
     Route::post('/store/home', 'StoreHome')->name('store.home');
    
  
@@ -59,11 +66,14 @@ Route::controller(AboutController::class)->group(function(){
 /* Skills */
 Route::controller(SkillController::class)->group(function(){
     Route::get('/skill/setup', 'SkillSetup')->name('skill.setup');
-    Route::get('/skill/all', 'SkillAll')->name('skill.all');
-    Route::post('/store/skill', 'StoreSkill')->name('store.skill');
-    Route::get('/skill/edit/{id}', 'SkillEdit')->name('skill.edit');
-    Route::post('/update/skill', 'UpdateSkill')->name('update.skill');
-    Route::get('/skill/delete/{id}', 'SkillDelete')->name('skill.delete');
+    Route::get('/skill/show', 'show')->name('skill.show');
+    // Route::post('/store/skill', 'StoreSkill')->name('store.skill');
+    Route::post('/skill/store', 'store')->name('skill.store');
+    Route::get('/skill/edit/{id}', 'edit')->name('skill.edit');
+    // Route::post('/update/skill', 'UpdateSkill')->name('skill.update');
+    Route::post('/skill/update', 'update')->name('skill.update');
+    // Route::get('/skill/delete/{id}', 'SkillDelete')->name('skill.delete');
+    Route::delete('/skill/delete/{id}', 'destroy')->name('skill.delete');
 
     /* Display Frontend */
     Route::get('/front/skill', 'FrontSkill')->name('front.skill');

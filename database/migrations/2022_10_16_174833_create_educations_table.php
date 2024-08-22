@@ -13,13 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('works', function (Blueprint $table) {
+        Schema::create('educations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); // Add the user_id column
+            $table->string('category')->nullable();
             $table->string('title')->nullable();
-            $table->string('image')->nullable();
-            $table->string('intro')->nullable();
+            $table->string('date')->nullable();
+            $table->string('location')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('works');
+        Schema::dropIfExists('educations');
     }
 };

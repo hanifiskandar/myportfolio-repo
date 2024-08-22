@@ -18,7 +18,7 @@
                 </a>
             </li>
 
-            <li>
+            {{-- <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
                     <span>Home Setup</span>
@@ -27,8 +27,18 @@
                     <li><a href="{{ route('home.setup') }}">Home Setup</a></li>
                     
                 </ul>
-            </li>
+            </li> --}}
             <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="ri-mail-send-line"></i>
+                    <span>Personal Detail Setup</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{ route('personal-detail.setup') }}">Personal Detail Setup</a></li>
+                    
+                </ul>
+            </li>
+            {{-- <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
                     <span>About Setup</span>
@@ -37,7 +47,7 @@
                     <li><a href="{{ route('about.setup') }}">About Setup</a></li>
                     
                 </ul>
-            </li>
+            </li> --}}
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
@@ -45,7 +55,7 @@
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('skill.setup') }}">Add Skill</a></li>
-                    <li><a href="{{ route('skill.all') }}">All Skill</a></li>
+                    <li><a href="{{ route('skill.show') }}">Skills</a></li>
                     
                 </ul>
             </li>
