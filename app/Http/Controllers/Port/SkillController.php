@@ -6,64 +6,72 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Skill;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 class SkillController extends Controller
 {
-    //
-    public function SkillSetup(){
+
+
+    public function setup(){
         return view('admin.skill_setup.skill_setup');
     }
-    public function SkillAll(){
-        $skill = Skill::latest()->get();
+
+    public function show(){
+        
+        $userId = Auth::id();
+
+        $skill = Skill::query()
+                ->where('user_id', $userId)
+                ->get();
+
         return view('admin.skill_setup.all_skill',compact('skill'));
     }
 
-    public function StoreSkill(Request $request){
+    public function store(Request $request){
 
+        $this->validateData($request);
 
-        $request->validate([
-            'language' => 'required',
-            'level' => 'required',
-        ]);
-
-        Skill::insert([
-            'language' => $request->language,
-            'level' => $request->level,
-            'created_at' => Carbon::now(),
-        ]);
+        $skill = new Skill;
+        $skill->language = $request->language;
+        $skill->level = $request->level;
+        $skill->user_id = $request->user_id;
+        $skill->save();
 
         $notification = array(
             'message' => 'Skill Inserted Successfully',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('skill.all')->with($notification);
+        return redirect()->route('skill.show')->with($notification);
     }
 
+    public function edit($id){
 
-    public function SkillEdit($id){
         $skill = Skill::findOrFail($id);
+
         return view('admin.skill_setup.skill_edit',compact('skill'));
     }
 
-    public function UpdateSkill(Request $request){
+    public function update(Request $request, $id){
 
-        $skill_id = $request->id;
+        $this->validateData($request);
 
-        Skill::findOrFail($skill_id)->update([
-            'language' => $request->language,
-            'level' => $request->level,
-            
-        ]);
+        $skill = Skill::find($id);
+        $skill->language = $request->language;
+        $skill->level = $request->level;
+        $skill->save();
+
         $notification = array(
             'message' => 'Skill Update Successfully',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('skill.all')->with($notification);
+        return redirect()->route('skill.show')->with($notification);
     }
 
-    public function SkillDelete($id){
+    public function destroy($id){
+
         $skill = Skill::findOrFail($id)->delete();
 
         $notification = array(
@@ -71,7 +79,15 @@ class SkillController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('skill.all')->with($notification);
+        return redirect()->route('skill.show')->with($notification);
+    }
+
+    private function validateData(Request $request)
+    {
+        $request->validate([
+            'language' => 'required|string',
+            'level' => 'required|numeric|min:1|max:100',
+        ]);
     }
 
     /* Frontend */

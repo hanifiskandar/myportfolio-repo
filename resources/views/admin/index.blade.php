@@ -115,7 +115,9 @@
                             </a>
                         
                         </div>
-
+                        {{ Auth::user()}} <br>
+                        You're logged in! {{ Auth::user()->name}} <br>
+                        You're logged in! {{ Auth::user()->email}}
                         <h4 class="card-title mb-4">Latest Transactions</h4>
 
                         <div class="table-responsive">

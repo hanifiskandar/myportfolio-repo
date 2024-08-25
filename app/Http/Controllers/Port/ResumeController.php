@@ -6,76 +6,58 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Resume;
 use Illuminate\Support\Carbon;
+use App\Models\User;
+use App\Models\PersonalDetail;
+use App\Models\Skill;
+use App\Models\WorkExperience;
+use App\Models\Education;
+use PDF;
+
+
 class ResumeController extends Controller
 {
-    //
-    public function ResumeSetup(){
-        return view('admin.resume_setup.resume_setup');
+    // Method to download PDF
+    public function download(Request $request)
+    {
+        // Get your data here
+        $data = $this->getData();
+
+        // Load the view and pass the data
+        $pdf = PDF::loadView('admin.resume.my_resume', $data);
+
+        // Return the generated PDF to the user
+        return $pdf->download('my_resume.pdf');
     }
 
-    public function ResumeAll(){
-        $resume = Resume::latest()->get();
-        return view('admin.resume_setup.all_resume',compact('resume'));
+    // Method to view PDF in browser
+    public function view(Request $request)
+    {
+        \Log::debug("view resume");
+        \Log::debug($request);
+        // Get your data here
+        $data = $this->getData();
+
+        \Log::debug('data');
+        \Log::debug($data);
+
+        // Load the view and pass the data
+        $pdf = PDF::loadView('admin.resume.my_resume', $data);
+
+        // Return the generated PDF to view in the browser
+        return $pdf->stream('my_resume.pdf');
     }
 
-    public function StoreResume(Request $request){
-        $request->validate([
-            'title' => 'required',
-            'date' => 'required',
-            'location' => 'required',
-            'description' => 'required',
-        ]);
+    // Optional: Method to get the course data
+    private function getData()
+    {
+        $userId = auth()->id();
 
-        Resume::insert([
-            'category' => $request->category,
-            'title' => $request->title,
-            'date' => $request->date,
-            'location' => $request->location,
-            'description' => $request->description,
-            'created_at' => Carbon::now(),
-        ]);
+        \DB::enableQueryLog();
+        $myresume = User::with('personal_detail', 'skills', 'work_experiences', 'educations')
+            ->where('id', $userId)
+            ->get();
+        \Log::debug(\DB::getQueryLog());
 
-        $notification = array(
-            'message' => 'Resume Inserted Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('resume.all')->with($notification);
-    }
-
-    public function ResumeEdit($id){
-        $resume = Resume::findOrFail($id);
-        return view('admin.resume_setup.resume_edit',compact('resume'));
-    }
-
-    public function UpdateResume(Request $request){
-
-        $resume_id = $request->id;
-        Resume::findOrFail($resume_id)->update([
-            'category' => $request->category,
-            'title' => $request->title,
-            'date' => $request->date,
-            'location' => $request->location,
-            'description' => $request->description,
-            
-        ]);
-
-        $notification = array(
-            'message' => 'Resume Update Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('resume.all')->with($notification);
-    }
-
-    public function DeleteResume($id){
-        $resume = Resume::findOrFail($id)->delete();
-
-        $notification = array(
-            'message' => 'Resume Delete Successfully',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('resume.all')->with($notification);
+        return ['myresume' => $myresume];
     }
 }

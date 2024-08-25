@@ -10,33 +10,28 @@ use Illuminate\Support\Carbon;
 
 class ContactController extends Controller
 {
-    //
 
-    // public function Contact(){
-    //    return view('frontend.body.contact.contact_setup');
-    // }
+    public function setup(){
 
-    public function ContactAll(){
-        $contact = Contact::latest()->get();
-        return view('admin.contact_setup.all_contact',compact('contact'));
+       return view('admin.contact_setup.contact_setup');
     }
 
-    public function StoreContact(Request $request){
+    // public function ContactAll(){
+    //     $contact = Contact::latest()->get();
+    //     return view('admin.contact_setup.all_contact',compact('contact'));
+    // }
 
-        // $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required',
-        //     'subject' => 'required',
-        //     'message' => 'required',
-        // ]);
+    public function store(Request $request){
 
-        Contact::insert([
-            'name'=> $request->name,
-            'email'=> $request->email,
-            'subject'=> $request->subject,
-            'message' => $request->message,
-            'created_at' => Carbon::now(),
+        $request->validate([
+            'subject' => 'required',
         ]);
+
+        $contact = new Contact;
+        $contact->user_id = $request->user_id;
+        $contact->subject = $request->subject;
+        $contact->message = $request->message;
+        $contact->save();
 
         $notification = array(
             'message' => 'Contact Submitted Successfully',
@@ -47,15 +42,15 @@ class ContactController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function ContactDelete($id){
-        $work = Contact::findOrFail($id)->delete();
+    // public function destroy($id){
 
-        $notification = array(
-            'message' => 'Contact Message is Deleted Successfully',
-            'alert-type' => 'success'
+    //     $contact = Contact::findOrFail($id)->delete();
 
-        );
+    //     $notification = array(
+    //         'message' => 'Contact Message is Deleted Successfully',
+    //         'alert-type' => 'success'
+    //     );
 
-        return redirect()->back()->with($notification);
-    }
+    //     return redirect()->back()->with($notification);
+    // }
 }

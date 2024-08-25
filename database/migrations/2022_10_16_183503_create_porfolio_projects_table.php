@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('resumes', function (Blueprint $table) {
+        Schema::create('portfolio_projects', function (Blueprint $table) {
             $table->id();
-            $table->string('category')->nullable();
+            $table->unsignedBigInteger('user_id'); // Add the user_id column
             $table->string('title')->nullable();
-            $table->string('date')->nullable();
-            $table->string('location')->nullable();
+            $table->string('image')->nullable();
+            $table->string('introduction')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resumes');
+        Schema::dropIfExists('portfolio_projects');
     }
 };
