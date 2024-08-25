@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Add the user_id column
-            $table->string('category')->nullable();
-            $table->string('title')->nullable();
-            $table->string('date')->nullable();
-            $table->string('location')->nullable();
-            $table->text('description')->nullable();
+            $table->string('course')->nullable();
+            $table->string('institution')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('course_highlight')->nullable();
+            $table->boolean('is_finished')->default(false);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

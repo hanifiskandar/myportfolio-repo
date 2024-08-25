@@ -14,18 +14,20 @@
                         <form action="{{ route('personal-detail.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
+                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+
                             <div class="row mb-3">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Title</label>
                                 <div class="col-sm-10">
                                     <input name="title" class="form-control" type="text"
-                                        id="example-text-input" value="{{ $personal_detail->title}}">
+                                        id="example-text-input" value="{{ $personal_detail->title ?? ''}}">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">About Image</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Image</label>
                                 <div class="col-sm-10">
-                                    <input name="about_image" class="form-control" type="file" 
+                                    <input name="image" class="form-control" type="file" 
                                         id="image" >
                                 </div>
                             </div>
@@ -34,7 +36,7 @@
                                 <label for="example-text-input" class="col-sm-2 col-form-label"></label>
                 
                                 <div class="col-sm-10">
-                                    <img id="showImage" class="rounded avatar-xl" src="{{ (!empty($personal_detail->about_image))?url($personal_detail->about_image):url('upload/no_image.jpg') }}"alt="Card image cap">
+                                    <img id="showImage" class="rounded avatar-xl" src="{{ (!empty($personal_detail->image))?url($personal_detail->image):url('upload/no_image.jpg') }}"alt="Card image cap">
                                 </div>
                             </div>
                 
@@ -42,59 +44,126 @@
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Personal Summary</label>
                                 <div class="col-sm-10">
                                     <textarea id="elm1" name="summary">
-                                        {{ $personal_detail->summary }}
+                                        {{ $personal_detail->summary ?? '' }}
                                     </textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Website</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Job</label>
                                 <div class="col-sm-10">
-                                    <input name="website" class="form-control" type="text"
-                                        id="example-text-input" value="{{ $personal_detail->website}}">
+                                    <input name="job" class="form-control" type="text"
+                                        id="example-text-input" value="{{ $personal_detail->job ?? ''}}">
                                 </div>
                             </div>
 
-                            <!-- Row for Job and Phone Number side by side -->
+
                             <div class="row mb-3">
                                 <label for="age" class="col-sm-2 col-form-label">Age</label>
                                 <div class="col-sm-4">
-                                    <input name="age" class="form-control" type="text" value="{{ $personal_detail->age }}" id="age">
+                                    <input name="age" class="form-control" type="text" value="{{ $personal_detail->age ?? '' }}" id="age">
                                 </div>
 
                                 <label for="birthday" class="col-sm-2 col-form-label">Birthday</label>
                                 <div class="col-sm-4">
-                                    <input name="birthday" class="form-control" type="text" value="{{ $personal_detail->birthday }}" id="birthday">
+                                    <input name="birthday" class="form-control"  placeholder="dd-mm-yyyy" type="date" value="{{ $personal_detail->birthday ?? '' }}" id="birthday">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                                 <div class="col-sm-4">
-                                    <input name="phone" class="form-control" type="text" value="{{ $personal_detail->phone }}" id="phone">
+                                    <input name="phone" class="form-control" type="text" value="{{ $personal_detail->phone ?? '' }}" id="phone">
                                 </div>
-
-                                {{-- <label for="email" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-4">
-                                    <input name="email" class="form-control" type="email" value="" id="email">
-                                </div> --}}
                             </div>
 
                             <div class="row mb-3">
-                                <label for="city" class="col-sm-2 col-form-label">City</label>
-                                <div class="col-sm-4">
-                                    <input name="city" class="form-control" type="text" value="{{ $personal_detail->city }}" id="city">
-                                </div>
-
-                                <label for="freelance" class="col-sm-2 col-form-label">Freelance</label>
-                                <div class="col-sm-4">
-                                    <input name="freelance" class="form-control" type="text" value="{{ $personal_detail->freelance }}" id="freelance">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                    <input name="address" class="form-control" type="text"
+                                        id="example-text-input" value="{{ $personal_detail->address ?? ''}}">
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <label for="freelance" class="col-sm-2 col-form-label">Freelance</label>
+                                <div class="col-sm-4">
+                                    <select name="freelance" class="form-control" id="freelance">
+                                        <option value="No" {{ !empty($personal_detail) && $personal_detail->freelance === 'No' ? 'selected' : '' }}>
+                                            No
+                                        </option>
+                                        <option value="Yes" {{ !empty($personal_detail) && $personal_detail->freelance === 'Yes' ? 'selected' : '' }}>
+                                            Yes
+                                        </option>
+                                    </select>                              
+                                </div>
+
+                                <label for="website" class="col-sm-2 col-form-label">Website</label>
+                                <div class="col-sm-4">
+                                    <input name="website" class="form-control" type="text" value="{{ $personal_detail->website ?? '' }}" id="website">
+                                </div>
+
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Expected Salary</label>
+                                <div class="col-sm-10">
+                                    <input name="expected_salary" class="form-control" type="text"
+                                        id="example-text-input" value="{{ $personal_detail->expected_salary ?? ''}}">
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label for="availability" class="col-sm-2 col-form-label">Availability</label>
+                                <div class="col-sm-10">
+                                    <select name="availability" class="form-control" id="availability">
+                                        <option value="" disabled {{ empty($personal_detail) || !$personal_detail->availability ? 'selected' : '' }}>
+                                            Select your availability
+                                        </option>
+                                        <option value="Now" {{ !empty($personal_detail) && $personal_detail->availability == 'Now' ? 'selected' : '' }}>
+                                            Now
+                                        </option>
+                                        <option value="2 weeks" {{ !empty($personal_detail) && $personal_detail->availability == '2 weeks' ? 'selected' : '' }}>
+                                            2 weeks
+                                        </option>
+                                        <option value="1 month" {{ !empty($personal_detail) && $personal_detail->availability == '1 month' ? 'selected' : '' }}>
+                                            1 month
+                                        </option>
+                                        <option value="2 months" {{ !empty($personal_detail) && $personal_detail->availability == '2 months' ? 'selected' : '' }}>
+                                            2 months
+                                        </option>
+                                        <option value="More than 2 months" {{ !empty($personal_detail) && $personal_detail->availability == 'More than 2 months' ? 'selected' : '' }}>
+                                            More than 2 months
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="employment_type" class="col-sm-2 col-form-label">Employment Type</label>
+                                <div class="col-sm-10">
+                                    <select name="employment_type" class="form-control" id="employment_type">
+                                        <option value="" disabled {{ empty($personal_detail) || !$personal_detail->employment_type ? 'selected' : '' }}>
+                                            Preferred employement type
+                                        </option>
+                                        <option value="Full Time" {{ !empty($personal_detail) && $personal_detail->employment_type == 'Now' ? 'selected' : '' }}>
+                                            Full Time
+                                        </option>
+                                        <option value="Part Time" {{ !empty($personal_detail) && $personal_detail->employment_type == '2 weeks' ? 'selected' : '' }}>
+                                            Part Time
+                                        </option>
+                                        <option value="Contract" {{ !empty($personal_detail) && $personal_detail->employment_type == '1 month' ? 'selected' : '' }}>
+                                            Contract
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            
                             <!-- end row -->
 
-                            <input type="submit" class="btn btn-info waves-effect waves-light" value="Update Home Area">
+                            <input type="submit" class="btn btn-info waves-effect waves-light" value="Save Data">
                         </form>
                     </div>
                 </div>

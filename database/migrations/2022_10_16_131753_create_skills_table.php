@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Add the user_id column
-            $table->string('title')->nullable();
             $table->string('language')->nullable();
             $table->integer('level')->nullable();
             $table->timestamps();

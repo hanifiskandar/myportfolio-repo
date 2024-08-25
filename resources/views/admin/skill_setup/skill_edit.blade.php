@@ -10,9 +10,10 @@
                 <div class="card">
                     <div class="card-body">
 
-        <h4 class="card-title">Skill Page Edit</h4>
-        <form action="{{ route('skill.update') }}" method="POST">
+        <h4 class="card-title">Skill Setup Edit</h4>
+        <form action="{{ route('skill.update',['id' => $skill->id]) }}" method="POST">
             @csrf
+            @method('put')
 
         
             <!-- end row -->

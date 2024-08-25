@@ -18,16 +18,6 @@
                 </a>
             </li>
 
-            {{-- <li>
-                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                    <i class="ri-mail-send-line"></i>
-                    <span>Home Setup</span>
-                </a>
-                <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="{{ route('home.setup') }}">Home Setup</a></li>
-                    
-                </ul>
-            </li> --}}
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
@@ -38,16 +28,7 @@
                     
                 </ul>
             </li>
-            {{-- <li>
-                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                    <i class="ri-mail-send-line"></i>
-                    <span>About Setup</span>
-                </a>
-                <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="{{ route('about.setup') }}">About Setup</a></li>
-                    
-                </ul>
-            </li> --}}
+
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
@@ -59,41 +40,60 @@
                     
                 </ul>
             </li>
+
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
-                    <span>Resume Setup</span>
+                    <span>Work Experience Setup</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="{{ route('resume.setup') }}">Add Resume</a></li>
-                    <li><a href="{{ route('resume.all') }}">All Resume</a></li>
-                    
+                    <li><a href="{{ route('work-experience.setup') }}">Add Work Experience</a></li>
+                    <li><a href="{{ route('work-experience.show') }}">Work Experiences</a></li>    
                 </ul>
             </li>
 
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
-                    <span>Work Setup</span>
+                    <span>Education Setup</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="{{ route('work.setup') }}">Add Work</a></li>
-                    <li><a href="{{ route('work.all') }}">All Work</a></li>
-                    
+                    <li><a href="{{ route('education.setup') }}">Add Education</a></li>
+                    <li><a href="{{ route('education.show') }}">Educations</a></li>     
                 </ul>
             </li>
 
             <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="ri-mail-send-line"></i>
+                    <span>Contact Us</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{ route('contact.setup') }}">Give Feedback</a></li>                   
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="ri-mail-send-line"></i>
+                    <span>Resume</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{ route('resume.view') }}" target="_blank">View</a></li>                   
+                    <li><a href="{{ route('resume.download') }}" target="_blank">Download</a></li>                   
+                </ul>
+            </li>
+
+            {{-- <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
                     <span>Contact Setup</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                    {{-- <li><a href="{{ route('work.setup') }}">Add Work</a></li> --}}
-                    <li><a href="{{ route('contact.all') }}">All Contact</a></li>
+            
                     
                 </ul>
-            </li>
+            </li> --}}
 
 
 

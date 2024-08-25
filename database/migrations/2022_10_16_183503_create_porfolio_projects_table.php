@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('work_experiences', function (Blueprint $table) {
+        Schema::create('portfolio_projects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Add the user_id column
-            $table->string('position')->nullable();
-            $table->string('company_name')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->string('title')->nullable();
+            $table->string('image')->nullable();
+            $table->string('introduction')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('is_role')->default(false);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_experiences');
+        Schema::dropIfExists('portfolio_projects');
     }
 };
