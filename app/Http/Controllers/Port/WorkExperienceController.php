@@ -74,7 +74,7 @@ class WorkExperienceController extends Controller
         $workExperience->start_date = $request->start_date;
         $workExperience->end_date = $request->end_date;
         $workExperience->description = $request->description;
-        $workExperience->is_role = $request->is_role;
+        $workExperience->is_role = $request->is_role === 'on';
         $workExperience->save();
 
         $notification = array(

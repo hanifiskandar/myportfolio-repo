@@ -11,6 +11,8 @@ use App\Http\Controllers\Port\ResumeController;
 use App\Http\Controllers\Port\WorkExperienceController;
 use App\Http\Controllers\Port\ContactController;
 use App\Http\Controllers\Port\EducationController;
+use App\Http\Controllers\Port\LanguageController;
+use App\Http\Controllers\Port\ReferenceController;
 // use App\Http\Controllers\Port\PdfController;
 
 
@@ -25,9 +27,14 @@ use App\Http\Controllers\Port\EducationController;
 |
 */
 
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
+
 Route::get('/', function () {
-    return view('frontend.index');
+    return auth()->check() ? redirect('/dashboard') : redirect('/login');
 });
+
 
 Route::controller(DemoController::class)->group(function(){
     Route::get('/about', 'Index')->name('about.page')->middleware('check');
@@ -43,43 +50,6 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/change/password', 'ChangePassword')->name('change.password');
     Route::post('/update/password', 'UpdatePassword')->name('update.password');
 });
-
-
-
-/* Home */
-// Route::controller(HomeController::class)->group(function(){
-//     Route::get('/home/setup/', 'HomeSetup')->name('home.setup');
-//     Route::post('/store/home', 'StoreHome')->name('store.home');
-   
- 
-// });
-// /* About */
-// Route::controller(AboutController::class)->group(function(){
-//     Route::get('/about/setup', 'AboutSetup')->name('about.setup');
-//     Route::post('/store/about', 'StoreAbout')->name('store.about');
-   
- 
-// });
-
-/* Work */
-// Route::controller(WorkController::class)->group(function(){
-//     Route::get('/work/setup', 'WorkSetup')->name('work.setup');
-//     Route::post('/store/work', 'StoreWork')->name('store.work');
-//     Route::get('/work/all', 'WorkAll')->name('work.all');
-//     Route::get('/work/edit/{id}', 'WorkEdit')->name('work.edit');
-//     Route::post('/update/work', 'UpdateWork')->name('update.work');
-//     Route::get('/work/delete/{id}', 'WorkDelete')->name('work.delete');
-//     Route::get('/work/detail/{id}', 'WorkDetail')->name('work.details');  
-// });
-
-/* Contact */
-// Route::controller(ContactController::class)->group(function(){
-//     // Route::get('/contact', 'Contact')->name('contact.me');
-//     Route::get('/contact/all', 'ContactAll')->name('contact.all');
-//     Route::post('/store/contact', 'StoreContact')->name('store.contact');
-//     Route::get('/contact/delete/{id}', 'ContactDelete')->name('contact.delete');    
-// });
-
 
 
 /* Personal Detail */
@@ -124,6 +94,30 @@ Route::controller(EducationController::class)->group(function(){
     Route::delete('/education/delete/{id}', 'destroy')->name('education.delete');
 });
 
+
+
+/* Languages */
+Route::controller(LanguageController::class)->group(function(){
+    Route::get('/language/setup', 'setup')->name('language.setup');
+    Route::get('/language/show', 'show')->name('language.show');
+    Route::post('/language/store', 'store')->name('language.store');
+    Route::get('/language/edit/{id}', 'edit')->name('language.edit');
+    Route::put('/language/update/{id}', 'update')->name('language.update');
+    Route::delete('/language/delete/{id}', 'destroy')->name('language.delete');
+ 
+});
+
+/* References */
+Route::controller(ReferenceController::class)->group(function(){
+    Route::get('/reference/setup', 'setup')->name('reference.setup');
+    Route::get('/reference/show', 'show')->name('reference.show');
+    Route::post('/reference/store', 'store')->name('reference.store');
+    Route::get('/reference/edit/{id}', 'edit')->name('reference.edit');
+    Route::put('/reference/update/{id}', 'update')->name('reference.update');
+    Route::delete('/reference/delete/{id}', 'destroy')->name('reference.delete');
+});
+
+
 /* Contact */
 Route::controller(ContactController::class)->group(function(){
     Route::get('/contact/setup', 'setup')->name('contact.setup');
@@ -133,10 +127,12 @@ Route::controller(ContactController::class)->group(function(){
    
 });
 
+
 /* PDF */
 Route::controller(ResumeController::class)->group(function(){
     Route::get('/resume/view', 'view')->name('resume.view');   
     Route::get('/resume/download', 'download')->name('resume.download');
+    Route::get('/resume/showcase', 'showcase')->name('resume.showcase');
 });
 
 /* Resume */

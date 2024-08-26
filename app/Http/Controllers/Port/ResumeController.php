@@ -22,6 +22,13 @@ class ResumeController extends Controller
         // Get your data here
         $data = $this->getData();
 
+        
+        $imagePath = public_path($data['resume']->personal_detail->image);
+        $image = base64_encode(file_get_contents($imagePath));
+    
+        // Add image to data for the view
+        $data['image'] = 'data:image/jpeg;base64,' . $image;
+
         // Load the view and pass the data
         $pdf = PDF::loadView('admin.resume.my_resume', $data);
 
@@ -32,13 +39,14 @@ class ResumeController extends Controller
     // Method to view PDF in browser
     public function view(Request $request)
     {
-        \Log::debug("view resume");
-        \Log::debug($request);
         // Get your data here
         $data = $this->getData();
 
-        \Log::debug('data');
-        \Log::debug($data);
+        $imagePath = public_path($data['resume']->personal_detail->image);
+        $image = base64_encode(file_get_contents($imagePath));
+    
+        // Add image to data for the view
+        $data['image'] = 'data:image/jpeg;base64,' . $image;
 
         // Load the view and pass the data
         $pdf = PDF::loadView('admin.resume.my_resume', $data);
@@ -47,17 +55,34 @@ class ResumeController extends Controller
         return $pdf->stream('my_resume.pdf');
     }
 
+    public function showcase(Request $request){
+
+        $data = $this->getData();
+
+        
+        $imagePath = public_path($data['resume']->personal_detail->image);
+        $image = base64_encode(file_get_contents($imagePath));
+    
+        // Add image to data for the view
+        $data['image'] = 'data:image/jpeg;base64,' . $image;
+
+        // \Log::debug($data);
+
+
+        return view('frontend.index',$data);
+    }
+
     // Optional: Method to get the course data
     private function getData()
     {
         $userId = auth()->id();
 
         \DB::enableQueryLog();
-        $myresume = User::with('personal_detail', 'skills', 'work_experiences', 'educations')
+        $resume = User::with('personal_detail', 'skills', 'work_experiences', 'educations','languages','references')
             ->where('id', $userId)
-            ->get();
+            ->first();
         \Log::debug(\DB::getQueryLog());
 
-        return ['myresume' => $myresume];
+        return ['resume' => $resume];
     }
 }

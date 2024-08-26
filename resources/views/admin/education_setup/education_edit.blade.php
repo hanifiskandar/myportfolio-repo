@@ -14,6 +14,8 @@
                             <h4 class="card-title">Education Edit</h4>
                             <form action="{{ route('education.update', ['id' => $education->id]) }}" method="POST">
                                 @csrf
+                                @method('put')
+
 
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 

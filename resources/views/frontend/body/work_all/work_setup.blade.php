@@ -1,42 +1,26 @@
-
-@php
-    
-    $work = App\Models\Work::orderBy('id')->get();
-@endphp
-
-
-<section id="work" class="full-height px-lg-5">
+<section id="work-experience" class="full-height px-lg-5">
     <div class="container">
 
         <div class="row pb-4" data-aos="fade-up">
             <div class="col-lg-8">
-                <h6 class="text-brand">WORK</h6>
-                <h1>My Recent Projects</h1>
+                {{-- <h6 class="text-brand">Working Experience</h6> --}}
+                <h1>Working Experiences</h1>
             </div>
         </div>
-      
-   
+
         <div class="row gy-4">
-            @foreach ($work as $item )
-            
-            <div class="col-md-4 " data-aos="fade-up">
-                <div class="card-custom rounded-4 bg-base shadow-effect">
-                    <div class="card-custom-image rounded-4">
-                        <img class="rounded-4" src="{{ asset($item->image) }}" alt="">
-                    </div>
-                    <div class="card-custom-content p-4">
-                        <h4>{{ $item->title }}</h4>
-                        <p>{{ $item->intro }}</p>
-                        <a href="{{ route('work.details',$item->id) }}" class="link-custom">Read More</a>
+            @foreach ($resume->work_experiences as $work_experience)
+                <div class="col-md-4 " data-aos="fade-up">
+                    <div class="card-custom rounded-4 bg-base shadow-effect">
+                        <div class="card-custom-content p-4">
+                            <h4>{{ $work_experience->company_name }}</h4>
+                            <b>{{ $work_experience->start_date }} - {{ $work_experience->end_date }}</b>
+                            <p>{{ $work_experience->position }}</p>
+                            <p>{!! $work_experience->description !!}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
             @endforeach
-
-        
         </div>
-   
-
     </div>
 </section>

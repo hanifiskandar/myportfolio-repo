@@ -19,14 +19,17 @@
 @include('frontend.body.resume_all.resume_setup')
  {{-- Resume End --}}
 
-
 <!-- WORK -->
 @include('frontend.body.work_all.work_setup')
 <!-- //WORK -->
 
+{{-- Languages --}}
+@include('frontend.body.language_all.language_setup')
+{{-- Skill end --}}
+
 
 <!-- CONTACT -->
-@include('frontend.body.contact_all.contact_setup')
+{{-- @include('frontend.body.contact_all.contact_setup') --}}
 <!-- //CONTACT -->
 
 

@@ -303,6 +303,68 @@ img {
     border: 2px solid #1f5297;
   }
 
+
+  /*  */
+
+  .education .education-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: var(--color-base);
+  }
+  
+  .education .education-item {
+    padding: 0 0 20px 20px;
+    margin-top: -2px;
+    border-left: 2px solid #1f5297;
+    position: relative;
+  }
+  
+  .education .education-item h4 {
+    line-height: 18px;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+    color: #022a30;
+    margin-bottom: 10px;
+  }
+  
+  .education .education-item h5 {
+    font-size: 16px;
+    /* background: #e4edf9; */
+    color:rgba(3, 63, 71, 0.8);
+    padding: 5px 15px;
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .education .education-item ul {
+    padding-left: 20px;
+  }
+  
+  .education .education-item ul li {
+    padding-bottom: 10px;
+  }
+  
+  .education .education-item:last-child {
+    padding-bottom: 0;
+  }
+  
+  .education .education-item::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50px;
+    left: -9px;
+    top: 0;
+    background: #fff;
+    border: 2px solid #1f5297;
+  }
+
   .hijau{
     color: var(--color-base2);
     font-weight: 700;
@@ -461,6 +523,48 @@ img {
     margin-bottom: 0;
   }
   
+
+  .languages .progress {
+    height: 60px;
+    display: block;
+    background: none;
+    border-radius: 0;
+  }
+  .languages p{
+    font-size: 18px;
+  }
+  
+  .languages h2{
+    color:black;
+  }
+  .languages .progress .language {
+    padding: 0;
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    color:black;
+  }
+  
+  .languages .progress .language .val {
+    float: right;
+    font-style: normal;
+  }
+  
+  .languages .progress-bar-wrap {
+    background: black;
+    height: 10px;
+  }
+  
+  .languages .progress-bar {
+    width: 1px;
+    height: 10px;
+    transition: 0.9s;
+    background-color: black;
+;
+  }
 
   /* Work */
 

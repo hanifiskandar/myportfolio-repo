@@ -14,6 +14,7 @@
                             <h4 class="card-title">Work Experience Edit</h4>
                             <form action="{{ route('work-experience.update', ['id' => $workExperience->id]) }}" method="POST">
                                 @csrf
+                                @method('put')
 
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 

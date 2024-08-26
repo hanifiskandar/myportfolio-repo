@@ -10,32 +10,32 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Skill Setup Edit</h4>
-                            <form action="{{ route('skill.update', ['id' => $skill->id]) }}" method="POST">
+                            <h4 class="card-title">Language Setup Edit</h4>
+                            <form action="{{ route('language.update', ['id' => $language->id]) }}" method="POST">
                                 @csrf
                                 @method('put')
 
-                                <input type="hidden" name="id" value="{{ $skill->id }}">
+                                <input type="hidden" name="id" value="{{ $language->id }}">
 
                                 <div class="row mb-3">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Programming
-                                        language</label>
+                                    <label for="name" class="col-sm-2 col-form-label">
+                                        Name</label>
                                     <div class="col-sm-10">
                                         <input name="language" class="form-control" type="text"
-                                            value="{{ $skill->language }}" id="example-text-input">
+                                            value="{{ $language->name }}" id="name">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Level</label>
+                                    <label for="level" class="col-sm-2 col-form-label">Level</label>
                                     <div class="col-sm-10">
                                         <input name="level" class="form-control" type="number"
-                                            value="{{ $skill->level }}" min="1" max="100"
-                                            id="example-text-input">
+                                            value="{{ $language->level }}" min="1" max="100"
+                                            id="level">
                                     </div>
                                 </div>
 
-                                <input type="submit" class="btn btn-info  waves-effect waves-light" value="Update Skill">
+                                <input type="submit" class="btn btn-info  waves-effect waves-light" value="Update language">
                             </form>
                         </div>
                     </div>

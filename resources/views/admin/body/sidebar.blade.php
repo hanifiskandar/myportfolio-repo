@@ -12,8 +12,8 @@
             <li class="menu-title">Menu</li>
 
             <li>
-                <a href="index.html" class="waves-effect">
-                    <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
+                <a href="   /dashboard" class="waves-effect">
+                    <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end"></span>
                     <span>Dashboard</span>
                 </a>
             </li>
@@ -66,6 +66,29 @@
             <li>
                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                     <i class="ri-mail-send-line"></i>
+                    <span>Languages Setup</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{ route('language.setup') }}">Add Language</a></li>
+                    <li><a href="{{ route('language.show') }}">Languages</a></li>
+                    
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="ri-mail-send-line"></i>
+                    <span>Reference Setup</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{ route('reference.setup') }}">Add Reference</a></li>
+                    <li><a href="{{ route('reference.show') }}">References</a></li>     
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="ri-mail-send-line"></i>
                     <span>Contact Us</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
@@ -81,6 +104,7 @@
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('resume.view') }}" target="_blank">View</a></li>                   
                     <li><a href="{{ route('resume.download') }}" target="_blank">Download</a></li>                   
+                    <li><a href="{{ route('resume.showcase') }}" target="_blank">Showcase</a></li>                   
                 </ul>
             </li>
 

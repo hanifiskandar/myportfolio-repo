@@ -73,7 +73,7 @@ class EducationController extends Controller
         $education->start_date = $request->start_date;
         $education->end_date = $request->end_date;
         $education->course_highlight = $request->course_highlight;
-        $education->is_finished = $request->is_finished;
+        $education->is_finished = $request->is_finished === 'on';
         $education->save();
 
         $notification = array(
