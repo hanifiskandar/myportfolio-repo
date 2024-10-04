@@ -11,9 +11,10 @@ use Illuminate\Support\Carbon;
 class ContactController extends Controller
 {
 
-    public function setup(){
+    public function setup()
+    {
 
-       return view('admin.contact_setup.contact_setup');
+        return view('admin.contact_setup.contact_setup');
     }
 
     // public function ContactAll(){
@@ -21,25 +22,39 @@ class ContactController extends Controller
     //     return view('admin.contact_setup.all_contact',compact('contact'));
     // }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
+        try {
+            $this->validateData($request);
+
+            $contact = new Contact;
+            $contact->user_id = $request->user_id;
+            $contact->subject = $request->subject;
+            $contact->message = $request->message;
+            $contact->save();
+
+            $notification = array(
+                'message' => 'Contact Submitted Successfully',
+                'alert-type' => 'success'
+            );
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
+
+
+        return redirect()->back()->with($notification);
+    }
+
+    private function validateData(Request $request)
+    {
         $request->validate([
             'subject' => 'required',
         ]);
-
-        $contact = new Contact;
-        $contact->user_id = $request->user_id;
-        $contact->subject = $request->subject;
-        $contact->message = $request->message;
-        $contact->save();
-
-        $notification = array(
-            'message' => 'Contact Submitted Successfully',
-            'alert-type' => 'success'
-        );
-
-       
-        return redirect()->back()->with($notification);
     }
 
     // public function destroy($id){

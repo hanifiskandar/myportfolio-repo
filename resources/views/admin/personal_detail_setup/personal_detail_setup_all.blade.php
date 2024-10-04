@@ -17,10 +17,13 @@
                             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 
                             <div class="row mb-3">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Title</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Title *</label>
                                 <div class="col-sm-10">
                                     <input name="title" class="form-control" type="text"
                                         id="example-text-input" value="{{ $personal_detail->title ?? ''}}">
+                                    @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -41,27 +44,36 @@
                             </div>
                 
                             <div class="row mb-3">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Personal Summary</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Personal Summary *</label>
                                 <div class="col-sm-10">
                                     <textarea id="elm1" name="summary">
                                         {{ $personal_detail->summary ?? '' }}
                                     </textarea>
+                                    @error('summary')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Job</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Job *</label>
                                 <div class="col-sm-10">
                                     <input name="job" class="form-control" type="text"
                                         id="example-text-input" value="{{ $personal_detail->job ?? ''}}">
+                                    @error('job')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
 
                             <div class="row mb-3">
-                                <label for="age" class="col-sm-2 col-form-label">Age</label>
+                                <label for="age" class="col-sm-2 col-form-label">Age *</label>
                                 <div class="col-sm-4">
                                     <input name="age" class="form-control" type="text" value="{{ $personal_detail->age ?? '' }}" id="age">
+                                    @error('age')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <label for="birthday" class="col-sm-2 col-form-label">Birthday</label>
@@ -71,17 +83,23 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                                <label for="phone" class="col-sm-2 col-form-label">Phone *</label>
                                 <div class="col-sm-4">
                                     <input name="phone" class="form-control" type="text" value="{{ $personal_detail->phone ?? '' }}" id="phone">
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Address</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Address *</label>
                                 <div class="col-sm-10">
                                     <input name="address" class="form-control" type="text"
                                         id="example-text-input" value="{{ $personal_detail->address ?? ''}}">
+                                    @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

@@ -18,9 +18,12 @@
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 
                                 <div class="row mb-3">
-                                    <label for="subject" class="col-sm-2 col-form-label">Subject</label>
+                                    <label for="subject" class="col-sm-2 col-form-label">Subject *</label>
                                     <div class="col-sm-10">
                                         <input name="subject" class="form-control" type="text" id="subject">
+                                        @error('subject')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 

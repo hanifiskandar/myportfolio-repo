@@ -33,22 +33,30 @@ class ReferenceController extends Controller
     public function store(Request $request)
     {
 
-        $this->validateData($request);
+        try {
+            $this->validateData($request);
 
-        $reference = new Reference();
-        $reference->user_id = $request->user_id;
-        $reference->name = $request->name;
-        $reference->position = $request->position;
-        $reference->email = $request->email;
-        $reference->phone = $request->phone;
-        $reference->save();
+            $reference = new Reference();
+            $reference->user_id = $request->user_id;
+            $reference->name = $request->name;
+            $reference->position = $request->position;
+            $reference->email = $request->email;
+            $reference->phone = $request->phone;
+            $reference->save();
 
-        $notification = array(
-            'message' => 'Reference Saved Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Reference Saved Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('reference.show')->with($notification);
+            return redirect()->route('reference.show')->with($notification);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
 
@@ -62,22 +70,32 @@ class ReferenceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validateData($request);
+        
+        try {
+            $this->validateData($request);
 
-        $reference = Reference::find($id);
-        $reference->user_id = $request->user_id;
-        $reference->name = $request->name;
-        $reference->position = $request->position;
-        $reference->email = $request->email;
-        $reference->phone = $request->phone;
-        $reference->save();
+            $reference = Reference::find($id);
+            $reference->user_id = $request->user_id;
+            $reference->name = $request->name;
+            $reference->position = $request->position;
+            $reference->email = $request->email;
+            $reference->phone = $request->phone;
+            $reference->save();
 
-        $notification = array(
-            'message' => 'Reference Update Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Reference Update Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('reference.show')->with($notification);
+            return redirect()->route('reference.show')->with($notification);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
     public function destroy($id)
@@ -102,5 +120,4 @@ class ReferenceController extends Controller
             'phone' => 'required',
         ]);
     }
-
 }

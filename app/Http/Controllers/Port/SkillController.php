@@ -13,64 +13,95 @@ class SkillController extends Controller
 {
 
 
-    public function setup(){
+    public function setup()
+    {
         return view('admin.skill_setup.skill_setup');
     }
 
-    public function show(){
-        
+    public function show()
+    {
+
         $userId = Auth::id();
 
         $skill = Skill::query()
-                ->where('user_id', $userId)
-                ->get();
+            ->where('user_id', $userId)
+            ->get();
 
-        return view('admin.skill_setup.all_skill',compact('skill'));
+        return view('admin.skill_setup.all_skill', compact('skill'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        try {
+            $this->validateData($request);
 
-        $this->validateData($request);
+            $skill = new Skill;
+            $skill->language = $request->language;
+            $skill->level = $request->level;
+            $skill->user_id = $request->user_id;
+            $skill->save();
 
-        $skill = new Skill;
-        $skill->language = $request->language;
-        $skill->level = $request->level;
-        $skill->user_id = $request->user_id;
-        $skill->save();
+            Skill::insert([
+                'language' => $request->language,
+                'level' => $request->level,
+                'user_id' => $request->user_id,
+            ]);
 
-        $notification = array(
-            'message' => 'Skill Inserted Successfully',
-            'alert-type' => 'success'
-        );
 
-        return redirect()->route('skill.show')->with($notification);
+            $notification = array(
+                'message' => 'Skill Inserted Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('skill.show')->with($notification);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
-    public function edit($id){
+
+    public function edit($id)
+    {
 
         $skill = Skill::findOrFail($id);
 
-        return view('admin.skill_setup.skill_edit',compact('skill'));
+        return view('admin.skill_setup.skill_edit', compact('skill'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
-        $this->validateData($request);
+        try {
+            $this->validateData($request);
 
-        $skill = Skill::find($id);
-        $skill->language = $request->language;
-        $skill->level = $request->level;
-        $skill->save();
+            $skill = Skill::find($id);
+            $skill->language = $request->language;
+            $skill->level = $request->level;
+            $skill->save();
 
-        $notification = array(
-            'message' => 'Skill Update Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Skill Update Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('skill.show')->with($notification);
+            return redirect()->route('skill.show')->with($notification);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $skill = Skill::findOrFail($id)->delete();
 
@@ -90,9 +121,4 @@ class SkillController extends Controller
         ]);
     }
 
-    /* Frontend */
-    // public function FrontSkill(){
-    //     $skill = Skill::latest()->get();
-    //     return view('frontend.body.skill_all.skill_setup',compact('skill'));
-    // }
 }

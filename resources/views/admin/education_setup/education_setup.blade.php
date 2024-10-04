@@ -18,32 +18,44 @@
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 
                                 <div class="row mb-3">
-                                    <label for="course" class="col-sm-2 col-form-label">Course</label>
+                                    <label for="course" class="col-sm-2 col-form-label">Course *</label>
                                     <div class="col-sm-10">
                                         <input name="course" class="form-control" type="text" id="course">
+                                        @error('course')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="institution" class="col-sm-2 col-form-label">Institution</label>
+                                    <label for="institution" class="col-sm-2 col-form-label">Institution *</label>
                                     <div class="col-sm-10">
                                         <input name="institution" class="form-control" type="text" id="institution">
+                                        @error('institution')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="start_date" class="col-sm-2 col-form-label">Start Date</label>
+                                    <label for="start_date" class="col-sm-2 col-form-label">Start Date *</label>
                                     <div class="col-sm-10">
                                         <input name="start_date" class="form-control" placeholder="dd-mm-yyyy"
                                             type="date" id="start_date">
+                                        @error('start_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="end_date" class="col-sm-2 col-form-label">End Date</label>
+                                    <label for="end_date" class="col-sm-2 col-form-label">End Date *</label>
                                     <div class="col-sm-10">
                                         <input name="end_date" class="form-control" placeholder="dd-mm-yyyy" type="date"
                                             id="end_date">
+                                        @error('end_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 

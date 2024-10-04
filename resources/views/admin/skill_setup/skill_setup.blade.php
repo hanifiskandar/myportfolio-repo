@@ -19,7 +19,7 @@
 
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Programming
-                                        language</label>
+                                        language *</label>
                                     <div class="col-sm-10">
                                         <input name="language" class="form-control" type="text" id="example-text-input">
                                         @error('language')
@@ -29,7 +29,7 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Level</label>
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Level *</label>
                                     <div class="col-sm-10">
                                         <input name="level" class="form-control" type="number" value="1"
                                             min="1" max="100" id="example-text-input">

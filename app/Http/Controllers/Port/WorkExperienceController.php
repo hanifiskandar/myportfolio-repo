@@ -21,7 +21,7 @@ class WorkExperienceController extends Controller
     {
 
         $userId = Auth::id();
-        
+
         $workExperience = WorkExperience::query()
             ->where('user_id', $userId)
             ->get();
@@ -32,27 +32,32 @@ class WorkExperienceController extends Controller
 
     public function store(Request $request)
     {
-        \Log::debug("Work Experience");
-        \Log::debug($request->all());
-        $this->validateData($request);
-        \Log::debug("siss'");
+        try {
+            $this->validateData($request);
 
-        $workExperience = new WorkExperience;
-        $workExperience->user_id = $request->user_id;
-        $workExperience->position = $request->position;
-        $workExperience->company_name = $request->company_name;
-        $workExperience->start_date = $request->start_date;
-        $workExperience->end_date = $request->end_date;
-        $workExperience->description = $request->description;
-        $workExperience->is_role = $request->is_role === 'on';
-        $workExperience->save();
+            $workExperience = new WorkExperience;
+            $workExperience->user_id = $request->user_id;
+            $workExperience->position = $request->position;
+            $workExperience->company_name = $request->company_name;
+            $workExperience->start_date = $request->start_date;
+            $workExperience->end_date = $request->end_date;
+            $workExperience->description = $request->description;
+            $workExperience->is_role = $request->is_role === 'on';
+            $workExperience->save();
 
-        $notification = array(
-            'message' => 'Work Experience Saved Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Work Experience Saved Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('work-experience.show')->with($notification);
+            return redirect()->route('work-experience.show')->with($notification);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
 
@@ -66,23 +71,31 @@ class WorkExperienceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validateData($request);
+        try {
+            $this->validateData($request);
 
-        $workExperience = WorkExperience::find($id);
-        $workExperience->position = $request->position;
-        $workExperience->company_name = $request->company_name;
-        $workExperience->start_date = $request->start_date;
-        $workExperience->end_date = $request->end_date;
-        $workExperience->description = $request->description;
-        $workExperience->is_role = $request->is_role === 'on';
-        $workExperience->save();
+            $workExperience = WorkExperience::find($id);
+            $workExperience->position = $request->position;
+            $workExperience->company_name = $request->company_name;
+            $workExperience->start_date = $request->start_date;
+            $workExperience->end_date = $request->end_date;
+            $workExperience->description = $request->description;
+            $workExperience->is_role = $request->is_role === 'on';
+            $workExperience->save();
 
-        $notification = array(
-            'message' => 'Work Experience Update Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Work Experience Update Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('work-experience.show')->with($notification);
+            return redirect()->route('work-experience.show')->with($notification);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
     public function destroy($id)
@@ -105,13 +118,7 @@ class WorkExperienceController extends Controller
             'company_name' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'description' => 'required',
         ]);
     }
 
-    // public function WorkDetail($id)
-    // {
-    //     $work = Work::findOrFail($id);
-    //     return view('frontend.work_details', compact('work'));
-    // }
 }

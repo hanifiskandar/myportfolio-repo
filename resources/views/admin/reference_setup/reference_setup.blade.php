@@ -18,30 +18,42 @@
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 
                                 <div class="row mb-3">
-                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                    <label for="name" class="col-sm-2 col-form-label">Name *</label>
                                     <div class="col-sm-10">
                                         <input name="name" class="form-control" type="text" id="name">
+                                        @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="position" class="col-sm-2 col-form-label">Position</label>
+                                    <label for="position" class="col-sm-2 col-form-label">Position *</label>
                                     <div class="col-sm-10">
                                         <input name="position" class="form-control" type="text" id="position">
+                                        @error('position')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                    <label for="email" class="col-sm-2 col-form-label">Email *</label>
                                     <div class="col-sm-10">
                                         <input name="email" class="form-control" type="email" id="email">
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                                    <label for="phone" class="col-sm-2 col-form-label">Phone *</label>
                                     <div class="col-sm-10">
                                         <input name="phone" class="form-control" type="text" id="phone">
+                                        @error('position')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 

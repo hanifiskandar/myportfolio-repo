@@ -22,9 +22,18 @@ class ResumeController extends Controller
         // Get your data here
         $data = $this->getData();
 
-        
-        $imagePath = public_path($data['resume']->personal_detail->image);
-        $image = base64_encode(file_get_contents($imagePath));
+        $personalDetailImage = $data['resume']->personal_detail->image;
+        if($personalDetailImage){
+            $imagePath = public_path($personalDetailImage);
+
+            if (file_exists($imagePath)) {  // Check if the file exists
+                $image = base64_encode(file_get_contents($imagePath));
+            }
+        }
+        else
+        {
+            $image = "";
+        }
     
         // Add image to data for the view
         $data['image'] = 'data:image/jpeg;base64,' . $image;
@@ -42,8 +51,18 @@ class ResumeController extends Controller
         // Get your data here
         $data = $this->getData();
 
-        $imagePath = public_path($data['resume']->personal_detail->image);
-        $image = base64_encode(file_get_contents($imagePath));
+        $personalDetailImage = $data['resume']->personal_detail->image;
+        if($personalDetailImage){
+            $imagePath = public_path($personalDetailImage);
+
+            if (file_exists($imagePath)) {  // Check if the file exists
+                $image = base64_encode(file_get_contents($imagePath));
+            }
+        }
+        else
+        {
+            $image = "";
+        }
     
         // Add image to data for the view
         $data['image'] = 'data:image/jpeg;base64,' . $image;

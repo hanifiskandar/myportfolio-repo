@@ -127,6 +127,12 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+    // 
+Route::get('/testing', function(){
+    return view('testing');
+});
+
+
 
 
 Route::get('/dashboard', function () {

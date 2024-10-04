@@ -33,24 +33,33 @@ class EducationController extends Controller
     public function store(Request $request)
     {
 
-        $this->validateData($request);
+        try {
+            $this->validateData($request);
 
-        $education = new Education;
-        $education->user_id = $request->user_id;
-        $education->course = $request->course;
-        $education->institution = $request->institution;
-        $education->start_date = $request->start_date;
-        $education->end_date = $request->end_date;
-        $education->course_highlight = $request->course_highlight;
-        $education->is_finished = $request->is_finished === 'on';
-        $education->save();
+            $education = new Education;
+            $education->user_id = $request->user_id;
+            $education->course = $request->course;
+            $education->institution = $request->institution;
+            $education->start_date = $request->start_date;
+            $education->end_date = $request->end_date;
+            $education->course_highlight = $request->course_highlight;
+            $education->is_finished = $request->is_finished === 'on';
+            $education->save();
 
-        $notification = array(
-            'message' => 'Education Saved Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Education Saved Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('education.show')->with($notification);
+            return redirect()->route('education.show')->with($notification);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
 
@@ -64,24 +73,33 @@ class EducationController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validateData($request);
+        try {
+            $this->validateData($request);
 
-        $education = Education::find($id);
-        $education->user_id = $request->user_id;
-        $education->course = $request->course;
-        $education->institution = $request->institution;
-        $education->start_date = $request->start_date;
-        $education->end_date = $request->end_date;
-        $education->course_highlight = $request->course_highlight;
-        $education->is_finished = $request->is_finished === 'on';
-        $education->save();
+            $education = Education::find($id);
+            $education->user_id = $request->user_id;
+            $education->course = $request->course;
+            $education->institution = $request->institution;
+            $education->start_date = $request->start_date;
+            $education->end_date = $request->end_date;
+            $education->course_highlight = $request->course_highlight;
+            $education->is_finished = $request->is_finished === 'on';
+            $education->save();
 
-        $notification = array(
-            'message' => 'Education Update Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Education Update Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('education.show')->with($notification);
+            return redirect()->route('education.show')->with($notification);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
     public function destroy($id)
@@ -104,8 +122,7 @@ class EducationController extends Controller
             'institution' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'course_highlight' => 'required',
+            // 'course_highlight' => 'required',
         ]);
     }
-
 }

@@ -12,64 +12,88 @@ use Illuminate\Support\Facades\Auth;
 class LanguageController extends Controller
 {
 
-    public function setup(){
+    public function setup()
+    {
         return view('admin.language_setup.language_setup');
     }
 
-    public function show(){
-        
+    public function show()
+    {
+
         $userId = Auth::id();
 
         $language = Language::query()
-                ->where('user_id', $userId)
-                ->get();
+            ->where('user_id', $userId)
+            ->get();
 
-        return view('admin.language_setup.all_language',compact('language'));
+        return view('admin.language_setup.all_language', compact('language'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-        $this->validateData($request);
+        try {
+            $this->validateData($request);
 
-        $language = new Language;
-        $language->name = $request->name;
-        $language->level = $request->level;
-        $language->user_id = $request->user_id;
-        $language->save();
+            $language = new Language;
+            $language->name = $request->name;
+            $language->level = $request->level;
+            $language->user_id = $request->user_id;
+            $language->save();
 
-        $notification = array(
-            'message' => 'Language Inserted Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Language Inserted Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('language.show')->with($notification);
+            return redirect()->route('language.show')->with($notification);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
 
         $language = Language::findOrFail($id);
 
-        return view('admin.language_setup.language_edit',compact('language'));
+        return view('admin.language_setup.language_edit', compact('language'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
-        $this->validateData($request);
+        try {
+            $this->validateData($request);
 
-        $language = Language::find($id);
-        $language->name = $request->name;
-        $language->level = $request->level;
-        $language->save();
+            $language = Language::find($id);
+            $language->name = $request->name;
+            $language->level = $request->level;
+            $language->save();
 
-        $notification = array(
-            'message' => 'Language Update Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Language Update Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->route('language.show')->with($notification);
+            return redirect()->route('language.show')->with($notification);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return redirect()->back()->withErrors($e->validator)->withInput()->with([
+                'message' => 'Please fill in all mandatory fields',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $language = Language::findOrFail($id)->delete();
 
